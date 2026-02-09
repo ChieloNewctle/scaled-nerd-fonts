@@ -1,9 +1,12 @@
-version := `date +%Y.%m.%d`
+version := "v" + `date +%Y.%m.%d`
 
 clean:
     rm SymbolsNerdFontScaled-{Bold,Italic,BoldItalic,Regular}.ttf
 
 publish:
-    gh release create "v{{ version }}" --latest \
-        -t "v{{ version }}" \
+    zip -r "SymbolsNerdFontScaled-{{version}}.zip" \
         SymbolsNerdFontScaled-{Bold,Italic,BoldItalic,Regular}.ttf
+    gh release create "{{version}}" --latest \
+        -t "{{version}}" \
+        "SymbolsNerdFontScaled-{{version}}.zip"
+    rm "SymbolsNerdFontScaled-{{version}}.zip"
